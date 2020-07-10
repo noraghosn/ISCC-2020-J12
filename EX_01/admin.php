@@ -10,9 +10,8 @@
     <input type="submit" name="upload" value="Uploader">
     <strong> Note:</strong> Seul les formats jpeg, png et jpg ne sont autorisés. La taille maximale est de 2Mo.
     </p>
-    </form>
 
-<?php
+    <?php
 session_start();
 
     if (filesize(string['photo'])>2097152)
@@ -32,4 +31,72 @@ session_start();
     }
     $_SESSION['titre'];
     $_SESSION['description'];
+
+    ?>
+<p> Nouvel utilisateur : </p>
+    <p> 
+    <label for="Login"> Login:</label> 
+    <input type="text" name= "Login" id="Login" placeholder="blaze" style="width: 250px;" style="height: 30px;"/>
+</p>
+<p> 
+    <label for="Mot de passe"> Mot de passe:</label> 
+    <input type="text" name= "Mot de passe" id="Mot de passe" placeholder="23xo..." style="width: 250px;" style="height: 30px;"/>
+</p>
+</form>
+
+
+<?php
+    function connect_to_database (){
+        $servername= "localhost";
+        $username= "root";
+        $password="root";
+        $databasename= "base-site-rooting";
+
+        try{
+            $pdo=new PDO ("mysql:host=$servername; dbname=$databasename", $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO:: ERRMODE_EXCEPTION);
+
+            echo "Connected successfully <br>";
+            return $pdo;
+        }
+
+        catch (PDOException $e) {
+            echo "Connection failed:". $e->getMessage();
+        }
+    }
+        
+        $pdo=connect_to_database();
+
+    function test($pdo){
+
+     $users=$pdo->query("SELECT * FROM utilisateurs")->fetchAll();
+
+     $Login= $_POST['Login'];
+     $Password=$_POST ['Password'];
+
+     $b=1;
+     foreach ($users as $user) {
+         if ($Login == $user ['loginn'])
+             {
+             $b=0;
+             }
+        }
+     if ($b== 1){
+        
+        function insert_data($pdo){
+            try{
+                $requete="INSERT TO utilisateurs(id, loginn, passwordd, imgpathh)
+                VALUES ('', '$Login', '$Password', '')";
+                $pdo->exec($requete);
+                echo "Identifiant créé.";
+            }
+            catch (PDOException $e) {
+                echo "Erreur insert". $e->getMessage();
+            }
+        }
+     }
+    }
+test($pdo);
+insert_data($pdo);
+
 ?>

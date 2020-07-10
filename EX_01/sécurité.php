@@ -29,15 +29,15 @@
 
         $b=0;
         foreach ($users as $user) {
-       if ($Login == $user ['login'])
+       if ($Login == $user ['loginn'])
        {
         if ($Password== $user['passwordd'])
         {
-            echo $user ['login']."<br>";
+            echo $user ['loginn']."<br>";
             echo $user ['passwordd']."<br>";
             echo "Vous êtes connectés.";
-            $_SESSION= $user['login'];
-            $_COOKIE= $user['img-path'];
+            $_SESSION= $user['loginn'];
+            $_COOKIE= $user['imgpathh'];
             $b=1;
         }
         
